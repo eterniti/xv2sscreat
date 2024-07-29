@@ -22,8 +22,6 @@
 #define INTERNAL_DATA "Internal package content"
 #define GAME_PREFIX "GAME:///"
 
-#define BODY_ID_TEXT    "Id to use in BAC: "
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

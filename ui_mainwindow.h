@@ -38,7 +38,6 @@ public:
     QAction *actionSave;
     QAction *actionExit;
     QAction *actionAbout;
-    QAction *actionImportSkillDir;
     QAction *actionFromGameIdb;
     QWidget *centralWidget;
     QTabWidget *tabWidget;
@@ -121,7 +120,6 @@ public:
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
-    QMenu *menuTools;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -138,8 +136,6 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
-        actionImportSkillDir = new QAction(MainWindow);
-        actionImportSkillDir->setObjectName(QStringLiteral("actionImportSkillDir"));
         actionFromGameIdb = new QAction(MainWindow);
         actionFromGameIdb->setObjectName(QStringLiteral("actionFromGameIdb"));
         centralWidget = new QWidget(MainWindow);
@@ -390,8 +386,6 @@ public:
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
-        menuTools = new QMenu(menuBar);
-        menuTools->setObjectName(QStringLiteral("menuTools"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -401,14 +395,12 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuFile->menuAction());
-        menuBar->addAction(menuTools->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
         menuHelp->addAction(actionAbout);
-        menuTools->addAction(actionImportSkillDir);
         mainToolBar->addAction(actionOpen);
         mainToolBar->addAction(actionSave);
 
@@ -427,7 +419,6 @@ public:
         actionSave->setText(QApplication::translate("MainWindow", "Save as...", 0));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
-        actionImportSkillDir->setText(QApplication::translate("MainWindow", "Import skill directory", 0));
         actionFromGameIdb->setText(QApplication::translate("MainWindow", "From game", 0));
 #ifndef QT_NO_TOOLTIP
         actionFromGameIdb->setToolTip(QApplication::translate("MainWindow", "From game", 0));
@@ -536,7 +527,6 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(idbTab), QApplication::translate("MainWindow", "IDB", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
-        menuTools->setTitle(QApplication::translate("MainWindow", "Tools", 0));
     } // retranslateUi
 
 };

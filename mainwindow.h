@@ -64,6 +64,8 @@ private slots:
 
     void on_idbCustomBlastButton_clicked();
 
+    void on_actionToggle_dark_mode_triggered();
+
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -94,6 +96,8 @@ private:
     void EditIdbEffect(IdbEffect &effect);
 
     int LinkOrEmbed(X2mFile *cost_x2m);
+
+    void ToggleDarkTheme(bool update_config);
 };
 
 #endif // MAINWINDOW_H

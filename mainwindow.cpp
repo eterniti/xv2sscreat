@@ -3,6 +3,7 @@
 #include <QCloseEvent>
 #include <QDesktopWidget>
 #include <QClipboard>
+#include <QStyleFactory>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -68,6 +69,9 @@ bool MainWindow::Initialize()
     Bootstrap(false, false);
     if (!game_talisman_idb)
         Xenoverse2::InitIdb(false, false, true, false, false, false, false, false);
+
+    if (config.dark_theme)
+        ToggleDarkTheme(false);
 
     // Fill types combo box
     std::vector<std::string> bt;
@@ -818,6 +822,51 @@ int MainWindow::LinkOrEmbed(X2mFile *blast_x2m)
     return 0;
 }
 
+void MainWindow::ToggleDarkTheme(bool update_config)
+{
+    if (update_config)
+    {
+        config.dark_theme = !config.dark_theme;
+        config.Save();
+    }
+
+    static bool dark_theme = false;
+    static QPalette saved_palette;
+
+    if (!dark_theme)
+    {
+        saved_palette = qApp->palette();
+        //DPRINTF("%s\n", qApp->style()->metaObject()->className());
+
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+        QPalette palette;
+        palette.setColor(QPalette::Window, QColor(53,53,53));
+        palette.setColor(QPalette::WindowText, Qt::white);
+        palette.setColor(QPalette::Base, QColor(15,15,15));
+        palette.setColor(QPalette::AlternateBase, QColor(53,53,53));
+        palette.setColor(QPalette::ToolTipBase, Qt::white);
+        palette.setColor(QPalette::ToolTipText, Qt::white);
+        palette.setColor(QPalette::Text, Qt::white);
+        palette.setColor(QPalette::Button, QColor(53,53,53));
+        palette.setColor(QPalette::ButtonText, Qt::white);
+        palette.setColor(QPalette::BrightText, Qt::red);
+
+        //palette.setColor(QPalette::Highlight, QColor(142,45,197).lighter());
+        palette.setColor(QPalette::HighlightedText, Qt::black);
+        palette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
+        palette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
+        qApp->setPalette(palette);
+
+        dark_theme =true;
+    }
+    else
+    {
+        qApp->setStyle(QStyleFactory::create("windowsvista"));
+        qApp->setPalette(saved_palette);
+        dark_theme = false;
+    }
+}
+
 void MainWindow::on_guidCopyButton_clicked()
 {
     QClipboard *clipboard = QApplication::clipboard();
@@ -901,3 +950,9 @@ void MainWindow::on_idbCustomBlastButton_clicked()
 
     IdbEntryToGui(x2m->GetSSItem().idb);
 }
+
+void MainWindow::on_actionToggle_dark_mode_triggered()
+{
+    ToggleDarkTheme(true);
+}
+
